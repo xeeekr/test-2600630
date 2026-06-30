@@ -5,9 +5,12 @@
   "scripts": {
     "build": "vite build",
     "start": "vite",
-    "preview": "vite preview --port 5173"
+    "preview": "vite preview --port 5173",
+    "deploy": "bun run build && wrangler deploy",
+    "lint": "echo 'no lint configured'"
   },
   "devDependencies": {
     "vite": "^6.4.3"
-  }
+  },
+  "dependencies": {}
 }
