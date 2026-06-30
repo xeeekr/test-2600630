@@ -52,6 +52,7 @@ export class World {
       for (let x = 0; x < this.cols; x++) {
         const t = this.tiles[y][x];
         const pos = camera.worldToScreen(x * this.tileW, y * this.tileH);
+        // 에셋이 있어도 기본 도형으로도 보이도록 색상으로 타일 채움
         ctx.fillStyle = t.color;
         ctx.fillRect(pos.x, pos.y, t.w * camera.zoom, t.h * camera.zoom);
       }
