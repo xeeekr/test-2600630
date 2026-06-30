@@ -17,7 +17,6 @@ export class Camera {
 
   updateZoom(delta: number) {
     if (delta === 0) return;
-    // 간단한 zoom 스텝: 더 직관적으로 조정 가능
     const factor = delta > 0 ? 1.08 : 0.92;
     this.zoom = Math.max(0.5, Math.min(2.5, this.zoom * factor));
   }

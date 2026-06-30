@@ -17,16 +17,11 @@ export class Game {
     const ctx = this.canvas.getContext("2d");
     if (!ctx) throw new Error("Canvas2D not supported");
     this.ctx = ctx;
-    this.player = new Player(0, 0);
-    this.camera = new Camera(this.canvas.width, this.canvas.height);
-    this.world = new World(40, 30); // 40x30 타일 맵
+    this.player = new Player(20 * 32, 15 * 32);
+    this.camera = new Camera(window.innerWidth, window.innerHeight);
+    this.world = new World(40, 30);
     this.input = new Input();
 
-    // 화면 중앙에 초기 위치
-    this.player.x = 20 * 32;
-    this.player.y = 15 * 32;
-
-    // 반응형 사이즈
     window.addEventListener("resize", () => this.resize());
     this.resize();
   }
@@ -37,14 +32,15 @@ export class Game {
     this.canvas.height = Math.floor(window.innerHeight * dpr);
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     this.ctx.scale(dpr, dpr);
-    // 실제 렌더링 좌표는 캔버스 좌표 시스템에 의존하므로 뷰포트도 재설정 가능
     this.camera.viewportW = window.innerWidth;
     this.camera.viewportH = window.innerHeight;
   }
 
   start() {
     const loop = (t: number) => {
-      const dt = this.lastTime ? Math.min(0.033, (t - this.lastTime) / 1000) : 0;
+      const dt = this.lastTime
+        ? Math.min(0.033, (t - this.lastTime) / 1000)
+        : 0;
       this.lastTime = t;
       this.update(dt);
       this.render();
@@ -62,16 +58,13 @@ export class Game {
   }
 
   render() {
-    const { ctx, canvas } = this;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.world.render(this.ctx, this.camera);
+    this.player.render(this.ctx, this.camera);
 
-    // 렌더 순서: 월드(타일), 플레이어
-    this.world.render(ctx, this.camera);
-    this.player.render(ctx, this.camera);
-
-    // 줌 상태 텍스트 예시 (선택)
-    ctx.fillStyle = "rgba(0,0,0,0.5)";
-    ctx.font = "14px sans-serif";
-    ctx.fillText(`Zoom: ${this.camera.zoom.toFixed(2)}`, 10, 20);
+    // 간단 UI: 줌 값
+    this.ctx.fillStyle = "rgba(0,0,0,0.5)";
+    this.ctx.font = "14px sans-serif";
+    this.ctx.fillText(`Zoom: ${this.camera.zoom.toFixed(2)}`, 10, 20);
   }
 }
