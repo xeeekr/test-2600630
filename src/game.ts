@@ -18,14 +18,14 @@ export class Game {
     if (!ctx) throw new Error("Canvas2D not supported");
     this.ctx = ctx;
 
-    // 에셋 로더를 시도해도 없으면 기본 도형으로 그리도록 설계
+    // 월드/플레이어 초기화
     this.world = new World(40, 30);
+    // 화면 중앙 근처 초기 위치
     this.player = new Player(20 * 32, 15 * 32);
     this.camera = new Camera(window.innerWidth, window.innerHeight);
 
     this.input = new Input();
 
-    // 반응형 크기
     window.addEventListener("resize", () => this.resize());
     this.resize();
   }
@@ -63,11 +63,10 @@ export class Game {
 
   render() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    // 에셋 로더가 성공했을 때는 에셋 우선, 실패 시 기본 도형으로 렌더링하도록 World/Player 클래스가 처리합니다.
     this.world.render(this.ctx, this.camera);
     this.player.render(this.ctx, this.camera);
 
-    // 간단 UI: 줌 값
+    // 간단한 HUD
     this.ctx.fillStyle = "rgba(0,0,0,0.5)";
     this.ctx.font = "14px sans-serif";
     this.ctx.fillText(`Zoom: ${this.camera.zoom.toFixed(2)}`, 10, 20);

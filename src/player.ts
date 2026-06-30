@@ -26,7 +26,6 @@ export class Player {
 
   render(ctx: CanvasRenderingContext2D, camera: any) {
     const p = camera.worldToScreen(this.x, this.y);
-    // 에셋이 없더라도 기본 도형으로 표현
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(p.x, p.y, this.size * camera.zoom, 0, Math.PI * 2);
