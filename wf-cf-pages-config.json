@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@cloudflare/pages",
+      "config": {
+        "node": "18.x"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "/*",
+      "endpoint": "/"
+    }
+  ]
+}
