@@ -2,7 +2,7 @@
 html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
 body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #111827; }
 .viewport { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: radial-gradient(circle at center, #273549 0%, #111827 70%); }
-.world { position: absolute; left: 0; top: 0; transform-origin: 0 0; background-color: #638b42; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px), radial-gradient(circle at 20% 25%, rgba(255,255,255,.12), transparent 18%), radial-gradient(circle at 75% 70%, rgba(0,0,0,.12), transparent 22%); background-size: 80px 80px, 80px 80px, 900px 900px, 1000px 1000px; image-rendering: pixelated; }
+.world { position: absolute; left: 0; top: 0; transform-origin: 0 0; background-color: #638b42; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px), radial-gradient(circle at 20% 25%, rgba(255,255,255,.12), transparent 18%), radial-gradient(circle at 75% 70%, rgba(0,0,0,.12), transparent 22%); background-size: 80px 80px, 80px 80px, 900px 900px, 1000px 1000px; }
 .border { position: absolute; inset: 0; border: 20px solid rgba(30, 64, 32, .85); box-shadow: inset 0 0 90px rgba(0,0,0,.25); pointer-events: none; }
 .obj { position: absolute; transform: translate(-50%, -50%); border-radius: 50%; box-shadow: 0 7px 0 rgba(0,0,0,.15); }
 .tree { background: radial-gradient(circle at 35% 30%, #93d36b, #236b2e 70%); border: 4px solid #194d25; }

@@ -18,17 +18,13 @@ function App() {
   const keys = useRef(new Set());
   const lastTime = useRef(performance.now());
 
-  const objects = useMemo(() => {
-    const items = [];
-    for (let i = 0; i < 70; i += 1) {
-      const x = 120 + ((i * 317) % (WORLD_SIZE - 240));
-      const y = 120 + ((i * 191) % (WORLD_SIZE - 240));
-      const size = 22 + ((i * 11) % 42);
-      const kind = i % 5 === 0 ? 'rock' : i % 3 === 0 ? 'bush' : 'tree';
-      items.push({ id: i, x, y, size, kind });
-    }
-    return items;
-  }, []);
+  const objects = useMemo(() => Array.from({ length: 70 }, (_, i) => ({
+    id: i,
+    x: 120 + ((i * 317) % (WORLD_SIZE - 240)),
+    y: 120 + ((i * 191) % (WORLD_SIZE - 240)),
+    size: 22 + ((i * 11) % 42),
+    kind: i % 5 === 0 ? 'rock' : i % 3 === 0 ? 'bush' : 'tree'
+  })), []);
 
   useEffect(() => {
     const down = (e) => {
@@ -65,7 +61,7 @@ function App() {
       if (k.has('s') || k.has('arrowdown')) dy += 1;
       if (k.has('a') || k.has('arrowleft')) dx -= 1;
       if (k.has('d') || k.has('arrowright')) dx += 1;
-      if (dx !== 0 || dy !== 0) {
+      if (dx || dy) {
         const len = Math.hypot(dx, dy);
         setPos((p) => ({
           x: clamp(p.x + (dx / len) * SPEED * dt, PLAYER_SIZE, WORLD_SIZE - PLAYER_SIZE),
@@ -80,26 +76,12 @@ function App() {
 
   return (
     <main className="viewport">
-      <section
-        className="world"
-        style={{
-          width: WORLD_SIZE,
-          height: WORLD_SIZE,
-          transform: `translate(calc(50vw - ${pos.x * zoom}px), calc(50vh - ${pos.y * zoom}px)) scale(${zoom})`
-        }}
-      >
+      <section className="world" style={{ width: WORLD_SIZE, height: WORLD_SIZE, transform: `translate(calc(50vw - ${pos.x * zoom}px), calc(50vh - ${pos.y * zoom}px)) scale(${zoom})` }}>
         <div className="border" />
         {objects.map((o) => <div key={o.id} className={`obj ${o.kind}`} style={{ left: o.x, top: o.y, width: o.size, height: o.size }} />)}
       </section>
-      <div className="player" aria-label="player">
-        <div className="face" />
-      </div>
-      <aside className="hud">
-        <strong>Top View</strong>
-        <span>Move: WASD / Arrow keys</span>
-        <span>Zoom: Wheel / +/-</span>
-        <span>Zoom {Math.round(zoom * 100)}%</span>
-      </aside>
+      <div className="player"><div className="face" /></div>
+      <aside className="hud"><strong>Top View</strong><span>Move: WASD / Arrow keys</span><span>Zoom: Wheel / +/-</span><span>Zoom {Math.round(zoom * 100)}%</span></aside>
     </main>
   );
 }
