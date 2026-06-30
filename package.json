@@ -1,0 +1,11 @@
+{
+  "name": "topdown-zoom-proto",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "vite build",
+    "start": "vite"
+  },
+  "devDependencies": {
+    "vite": "^4.x"
+  }
+}
